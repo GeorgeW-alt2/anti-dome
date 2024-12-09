@@ -46,26 +46,26 @@ def detect_network_activity(interval=1, decay_rate=0.8, threshold_factor=1.5):
         
         prev_stats = current_stats
 
-# Function to play music from the list
-def play_music_from_list():
+# Function to play a random song from the list
+def play_random_song():
     song_list = load_songs_from_file()  # Load songs from songs.txt
     if not song_list:
         print("No songs found to play.")
         return
     
-    for song in song_list:
-        print(f"Now playing: {song}")
-        pygame.mixer.music.load(song)
-        pygame.mixer.music.play(loops=0)  # Play the song once
-        while pygame.mixer.music.get_busy():  # Wait for the song to finish
-            if detect_network_activity():
-                print("Above average network activity detected! Skipping...")
-                # Skip a random amount of time (1-5 seconds)
-                skip_time = random.randint(1, 5)  # Seconds to skip
-                current_pos = pygame.mixer.music.get_pos() // 1000  # Current position in seconds
-                new_pos = current_pos + skip_time
-                pygame.mixer.music.set_pos(new_pos)
+    # Pick a random song from the list
+    song = random.choice(song_list)
+    print(f"Now playing: {song}")
+    pygame.mixer.music.load(song)
+    pygame.mixer.music.play(loops=0)  # Play the song once
+    while pygame.mixer.music.get_busy():  # Wait for the song to finish
+        if detect_network_activity():
+            print("Above average network activity detected! Skipping...")
+            # Skip a random amount of time (1-5 seconds)
+            skip_time = random.randint(1, 5)  # Seconds to skip
+            current_pos = pygame.mixer.music.get_pos() // 1000  # Current position in seconds
+            new_pos = current_pos + skip_time
+            pygame.mixer.music.set_pos(new_pos)
 
-# Start the music player
-play_music_from_list()
-
+# Start the music player with a random song
+play_random_song()
