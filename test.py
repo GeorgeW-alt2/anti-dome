@@ -62,7 +62,7 @@ def play_random_song():
         if detect_network_activity():
             print("Above average network activity detected! Skipping...")
             # Skip a random amount of time (1-5 seconds)
-            skip_time = random.randint(1, 5)  # Seconds to skip
+            skip_time = random.randint(-3, 6)  # Seconds to skip
             current_pos = pygame.mixer.music.get_pos() // 1000  # Current position in seconds
             new_pos = current_pos + skip_time
             pygame.mixer.music.set_pos(new_pos)
